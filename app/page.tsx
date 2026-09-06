@@ -1,96 +1,43 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
-type Phase = 'ready' | 'erasing' | 'loading' | 'done';
-const welcome = "yo what's up";
-const instruction = 'ask a question';
-const loadingWords = [
-  'loading...', 'thinking...', 'wait a few seconds...', 'cargando...', 'pensando...', 'espera unos segundos...',
-  'chargement...', 'réflexion...', 'attendez quelques secondes...', 'laden...', 'denke nach...', 'warte ein paar Sekunden...',
-  'caricamento...', 'sto pensando...', 'aspetta qualche secondo...', 'carregando...', 'pensando...', 'espere alguns segundos...',
-  '読み込み中...', '考え中...', '数秒お待ちください...', '読み込み...', '생각 중...', '잠시만 기다려 주세요...',
-  '加载中...', '思考中...', '请稍等几秒...', 'загрузка...', 'думаю...', 'подождите несколько секунд...',
-  'betöltés...', 'gondolkodom...', 'várj néhány másodpercet...', 'indlæser...', 'tænker...', 'vent et par sekunder...',
-  'laster...', 'tenker...', 'vent noen sekunder...', 'laddar...', 'tänker...', 'vänta några sekunder...',
-  'ladataan...', 'mietin...', 'odota hetki...', 'indlæser...', 'jeg tænker...', 'vent lidt...',
-  'bezig met laden...', 'ik denk na...', 'wacht een paar seconden...', 'carregant...', 'pensant...', 'espera uns segons...',
-  'cargando...', 'estoy pensando...', 'espera unos segundos...', 'muirir...', 'ag smaoineamh...', 'fan cúpla soicind...',
-  'טעינה...', 'חושב...', 'חכה כמה שניות...', 'تحميل...', 'أفكر...', 'انتظر بضع ثوانٍ...',
-  'लोड हो रहा है...', 'सोच रहा हूँ...', 'कुछ सेकंड प्रतीक्षा करें...', 'yükleniyor...', 'düşünüyorum...', 'birkaç saniye bekle...',
-  'yükleniyor...', 'düşünüyorum...', 'birkaç saniye bekleyin...', 'carregando...', 'pensando...', 'espere alguns segundos...',
-  'memuat...', 'sedang berpikir...', 'tunggu beberapa detik...', 'กำลังโหลด...', 'กำลังคิด...', 'รอสักครู่...',
-  'กำลังโหลด...', 'คิดอยู่...', 'รออีกสักครู่...', 'กำลังโหลด...', 'กำลังคิด...', 'อีกไม่กี่วินาที...',
-  'লোড হচ্ছে...', 'ভাবছি...', 'কয়েক সেকেন্ড অপেক্ষা করুন...', 'লোড হচ্ছে...', 'ভাবছি...', 'অপেক্ষা করুন...',
-  'loading...', 'thinking...', 'wait a few seconds...', 'almost there...', 'one moment...', 'just a sec...',
-  'processing...', 'working on it...', 'hold tight...', 'nearly ready...',
+const story = [
+  "Hey, my name is Angel and I was born in Venezuela in 1996.",
+  "Since I was a child I've loved computers. I got my first computer when I was about 10 years old and it changed my life.",
+  "I developed plugins and mods for my favorite videogames, watched hundreds of pirated movies, and read hundreds of Wikipedia pages. But it was only entertainment and curiosity.",
+  "Soon enough, I had to earn a living to keep it going. I started working when I was 14 making hamburger paties with my Italian uncle. My second job was making hot dogs and burgers at his food kiosk when I was about 17.",
+  "Then I decided that wasn't the job I wanted to do for the rest of my life. While I was studying Modern Languages in college, I found I could make money on the internet. And that's when I discovered the endless opportunities online.",
+  "After searching frenetically for opportunities to earn online, I found something cool: you didn't have to join scams or pyramid schemes to make money, you could actually SELL YOUR SKILLS.",
+  "That's when my reading and writing hobby became more useful. A few months in, I got my first online gig writing a SEO blog post for a gambling website (not proud of that, but I was desperate at the moment, what can I say). It was a success.",
+  "I made more money on that gig that I made cooking for my uncle in a month. So I couldn't stop...",
+  "Months later I had enough work to be able to hire other people to help me. I was literally running an agency by myself. A nameless agency, but it was working. I went from making $30 a month cooking for my uncle, to making over $2k a month writing online.",
+  "That was enough to update my ambitions. I could live in almost any other country by that time. And sure enough, 2 years later I made enough money to be able to move out of my home country.",
+  "So I did.",
+  "By that point I had already been working as a content writer and copywriter for about 4 years and was making enough money to sustain a life in a country that was SUBSTANTIALLY more expensive than where I came from.",
+  "But even though the money was good, I wasn't enjoying the work as much anymore. Not only because I knew I didn't want to keep doing this for the rest of my life, but also because I knew there were more opportunities out there.",
+  "So I decided to make the BIGGEST jump. I started learning how to code to become a developer.",
+  "And that's where my life REALLY started...",
 ];
 
 export default function Home() {
-  const [written, setWritten] = useState(welcome);
-  const [question, setQuestion] = useState('');
-  const [phase, setPhase] = useState<Phase>('ready');
-  const [remaining, setRemaining] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setReducedMotion(true);
-      return;
-    }
-    setWritten('');
-    let index = 0;
-    const timer = window.setInterval(() => {
-      setWritten(welcome.slice(0, ++index));
-      if (index >= welcome.length) window.clearInterval(timer);
-    }, 65);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (phase === 'erasing') {
-      const total = welcome.length + instruction.length + question.trim().length;
-      const started = performance.now();
-      const timer = window.setInterval(() => {
-        const left = Math.max(0, Math.ceil(total * (1 - (performance.now() - started) / 1600)));
-        setRemaining(left);
-        if (!left) setPhase('loading');
-      }, 25);
-      return () => window.clearInterval(timer);
-    }
-    if (phase === 'loading') {
-      const timer = window.setTimeout(() => setPhase('done'), 5000);
-      return () => window.clearTimeout(timer);
-    }
-  }, [phase, question]);
-
-  function sendQuestion() {
-    if (phase !== 'ready' || !question.trim()) return;
-    setRemaining(welcome.length + instruction.length + question.trim().length);
-    setPhase(reducedMotion ? 'loading' : 'erasing');
-  }
-
-  if (phase === 'loading') {
-    return <main className={`loading-screen ${reducedMotion ? 'reduced' : ''}`} aria-live="polite" aria-busy="true">
-      <span className="sr-only">Loading, thinking, wait a few seconds.</span>
-      {loadingWords.map((word, index) => <span className="loading-word" aria-hidden="true" key={`${word}-${index}`} style={{ left: `${(index * 37) % 93}%`, top: `${(index * 61) % 91}%`, animationDelay: `${(index % 17) * -0.18}s` }}>{word}</span>)}
-    </main>;
-  }
-
-  if (phase === 'done') {
-    return <main className="ending" aria-live="polite"><div className="final-content"><h1 className="final-message">ok click below</h1><a className="video-button" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">click here</a></div></main>;
-  }
-
   return (
-    <main className="terminal">
-      <section className="console" aria-label="Ask a question" aria-busy={phase === 'erasing'}>
-        <h1 aria-label={phase === 'ready' ? welcome : 'Clearing terminal'}><span aria-hidden="true">{phase === 'ready' ? written : welcome.slice(0, remaining)}</span>{phase === 'ready' && <span className="cursor" aria-hidden="true">▌</span>}</h1>
-        <p id="question-instruction">{phase === 'ready' ? instruction : instruction.slice(0, Math.max(0, remaining - welcome.length))}</p>
-        {phase === 'ready' ? <form onSubmit={(event) => {event.preventDefault(); sendQuestion();}}>
-          <input aria-label="Your question" aria-describedby="question-instruction" placeholder="type here..." value={question} onChange={(event) => setQuestion(event.target.value)} autoComplete="off" maxLength={2000} required enterKeyHint="send" />
-          <button type="submit" aria-label="Send question" disabled={!question.trim()}>enter ↵</button>
-        </form> : <div className="sent-question">{question.trim().slice(0, Math.max(0, remaining - welcome.length - instruction.length))}</div>}
-      </section>
+    <main className="story-page">
+      <article className="story" aria-label="Angel's story">
+        {story.map((paragraph, index) =>
+          index === 0 ? (
+            <h1 key={paragraph}>{paragraph}</h1>
+          ) : (
+            <p key={paragraph} className={paragraph === 'So I did.' ? 'turning-point' : undefined}>
+              {paragraph}
+            </p>
+          ),
+        )}
+      </article>
+
+      <a
+        className="surprise-button"
+        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        aria-label="Click for a surprise"
+      >
+        click for a surprise
+      </a>
     </main>
   );
 }
