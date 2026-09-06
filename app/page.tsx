@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   if (phase === 'black' || phase === 'done') {
-    return <main className="ending" aria-live="polite" aria-busy={phase === 'black'}>{phase === 'done' && <h1 className="final-message">all good mate</h1>}</main>;
+    return <main className="ending" aria-live="polite" aria-busy={phase === 'black'}>{phase === 'done' && <div className="final-content"><h1 className="final-message">ok click below</h1><a className="video-button" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">click here</a></div>}</main>;
   }
 
   return (

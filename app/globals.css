@@ -24,3 +24,8 @@ button:disabled { opacity: .35; cursor: default; }
 h1.final-message { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 400; letter-spacing: -.025em; color: #fff; line-height: 1.2; min-height: auto; margin: 0; text-align: center; }
 @keyframes blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+.final-content { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.video-button { display: inline-flex; justify-content: center; align-items: center; min-height: 80px; padding: 20px 56px; background: #df1616; color: #fff; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(24px, 4vw, 32px); line-height: 1.25; text-decoration: none; text-align: center; border-radius: 8px; }
+.video-button:hover { background: #bd1010; }
+.video-button:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
