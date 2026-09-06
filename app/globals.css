@@ -29,3 +29,8 @@ h1.final-message { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(28
 .video-button { display: inline-flex; justify-content: center; align-items: center; min-height: 80px; padding: 20px 56px; background: #df1616; color: #fff; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(24px, 4vw, 32px); line-height: 1.25; text-decoration: none; text-align: center; border-radius: 8px; }
 .video-button:hover { background: #bd1010; }
 .video-button:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
+.loading-screen { position: relative; min-height: 100svh; overflow: hidden; background: #000; color: #eee; }
+.loading-word { position: absolute; max-width: 90vw; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(12px, 1.7vw, 20px); line-height: 1.2; white-space: nowrap; opacity: 0; transform: translate(-50%, -50%) scale(.94); animation: loading-flash 1.8s steps(1, end) infinite; }
+.loading-screen.reduced .loading-word { animation: none; opacity: .7; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@keyframes loading-flash { 0%, 100% { opacity: 0; } 18%, 42% { opacity: .82; transform: translate(-50%, -50%) scale(1); } 55% { opacity: .12; } }
