@@ -63,13 +63,53 @@ body {
   text-wrap: balance;
 }
 
+.intro-actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+}
+
+.intro-actions button,
+.story .intro-actions a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 16px 12px;
+  border: 1px solid #777;
+  background: transparent;
+  color: #eee;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.intro-actions button:hover,
+.intro-actions a:hover {
+  background: #171717;
+  border-color: #eee;
+}
+
+.intro-actions button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+#full-story {
+  margin-top: clamp(56px, 9vw, 104px);
+}
+
 .story p {
   margin: 0 0 1.55em;
   font-size: clamp(18px, 2.15vw, 23px);
   letter-spacing: -0.012em;
 }
 
-.story p:last-child {
+.story .story-ending {
   margin-top: clamp(64px, 9vw, 112px);
   margin-bottom: 0;
   color: #fff;
@@ -78,6 +118,40 @@ body {
   letter-spacing: -0.04em;
   text-wrap: balance;
 }
+
+.eyebrow { display: block; color: #999; font-size: 13px; line-height: 1.6; letter-spacing: .09em; font-weight: 400; }
+.intro h1 { margin: 28px 0; font-size: clamp(36px, 5.4vw, 60px); line-height: 1.12; }
+.story .intro-description { max-width: 640px; color: #bbb; font-size: clamp(18px, 2vw, 21px); }
+.skills { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 36px; }
+.skills span { border: 1px solid #333; padding: 5px 12px; border-radius: 20px; font-size: 14px; color: #bbb; }
+.availability { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-top: 24px; font-size: 14px; color: #aaa; }
+.availability > span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #eee; margin-right: 9px; }
+.selected-work { margin-top: 80px; }
+.selected-work > h2 { margin-bottom: 20px; }
+.work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.story .work-card { display: flex; flex-direction: column; border: 1px solid #333; padding: 24px; text-decoration: none; background: #090909; transition: border-color .2s, background .2s; }
+.story .work-card:hover { border-color: #888; background: #111; }
+.work-card .eyebrow { font-size: 12px; letter-spacing: .04em; }
+.work-card h3 { display: flex; justify-content: space-between; gap: 12px; margin: 24px 0 14px; font-size: 26px; font-weight: 400; letter-spacing: -.03em; }
+.work-card h3 span { color: #999; }
+.story .work-card p { font-size: 16px; line-height: 1.6; color: #bbb; margin-bottom: 24px; }
+.work-detail { margin-top: auto; color: #999; font-size: 13px; }
+.chapter { font-size: clamp(28px, 4vw, 40px); font-weight: 400; line-height: 1.2; letter-spacing: -.025em; padding-top: 32px; margin: 80px 0 36px; }
+.chapter span { display: block; font-size: 13px; letter-spacing: .09em; color: #999; margin-bottom: 16px; }
+#full-story:not([hidden]) { animation: story-reveal .35s ease-out; }
+.social-footer { margin-top: 80px; padding-top: 32px; }
+.social-footer h2 { font-size: 20px; font-weight: 400; margin: 0 0 20px; }
+.social-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.story .social-links a { display: inline-flex; align-items: center; gap: 12px; border: 1px solid #444; padding: 12px 18px; font-size: 15px; text-decoration: none; }
+.social-links svg { width: 19px; height: 19px; }
+.social-links a:hover { background: #171717; }
+@keyframes story-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@supports (animation-timeline: scroll()) {
+  .reading-progress { position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: #eee; z-index: 20; transform-origin: left; animation: reading linear; animation-timeline: scroll(root); }
+  @keyframes reading { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+@media (max-width: 600px) { .work-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { #full-story:not([hidden]), .reading-progress { animation: none; } .reading-progress { display: none; } .story .work-card { transition: none; } }
 
 .story a {
   color: inherit;
