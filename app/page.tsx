@@ -2,47 +2,68 @@
 
 import { useEffect, useState } from 'react';
 
-const welcome = 'Hello, stranger.\nWhat’s on your mind?';
+type Phase = 'ready' | 'erasing' | 'black' | 'done';
+const welcome = "yo what's up";
+const instruction = 'ask a question';
 
 export default function Home() {
   const [written, setWritten] = useState(welcome);
   const [question, setQuestion] = useState('');
-  const [submitted, setSubmitted] = useState('');
+  const [phase, setPhase] = useState<Phase>('ready');
+  const [remaining, setRemaining] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setReducedMotion(true);
+      return;
+    }
     setWritten('');
     let index = 0;
     const timer = window.setInterval(() => {
-      index += 1;
-      setWritten(welcome.slice(0, index));
+      setWritten(welcome.slice(0, ++index));
       if (index >= welcome.length) window.clearInterval(timer);
-    }, 45);
+    }, 65);
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (phase === 'erasing') {
+      const total = welcome.length + instruction.length + question.trim().length;
+      const started = performance.now();
+      const timer = window.setInterval(() => {
+        const left = Math.max(0, Math.ceil(total * (1 - (performance.now() - started) / 1600)));
+        setRemaining(left);
+        if (!left) setPhase('black');
+      }, 25);
+      return () => window.clearInterval(timer);
+    }
+    if (phase === 'black') {
+      const timer = window.setTimeout(() => setPhase('done'), 4000);
+      return () => window.clearTimeout(timer);
+    }
+  }, [phase, question]);
+
+  function sendQuestion() {
+    if (phase !== 'ready' || !question.trim()) return;
+    setRemaining(welcome.length + instruction.length + question.trim().length);
+    setPhase(reducedMotion ? 'black' : 'erasing');
+  }
+
+  if (phase === 'black' || phase === 'done') {
+    return <main className="ending" aria-live="polite" aria-busy={phase === 'black'}>{phase === 'done' && <h1 className="final-message">all good mate</h1>}</main>;
+  }
+
   return (
     <main className="terminal">
-      <header className="topbar">
-        <span className="identity"><span className="terminal-icon" aria-hidden="true">&gt;_</span> ask.exe</span>
-        <span className="edition">a space for curiosity</span>
-      </header>
-      <section className="console" aria-label="Question terminal">
-        <p className="command"><span className="path">C:\\visitor&gt;</span> start conversation</p>
-        <p className="system">Welcome. No commands to learn. Just words.</p>
-        <h1 aria-label={welcome}><span aria-hidden="true">{written}</span><span className="cursor" aria-hidden="true">▌</span></h1>
-        <p className="invitation" id="question-instruction">Ask a question. Start anywhere.</p>
-        {submitted && <div className="transcript" role="status"><p><span className="path">&gt;</span> {submitted}</p><p className="system">This terminal is a preview. Answers aren’t connected yet.</p></div>}
-        <form onSubmit={(event) => {event.preventDefault(); if(question.trim()) {setSubmitted(question.trim()); setQuestion('');}}}>
-          <label className="input-row">
-            <span className="prompt" aria-hidden="true">&gt;</span>
-            <input aria-label="Your question" aria-describedby="question-instruction" placeholder="Type your question here..." value={question} onChange={(event) => setQuestion(event.target.value)} autoComplete="off" maxLength={2000} />
-            <button type="submit" aria-label="Enter question" disabled={!question.trim()}>enter <span aria-hidden="true">↵</span></button>
-          </label>
-        </form>
-        <p className="hint">Press Enter when you’re ready.</p>
+      <section className="console" aria-label="Ask a question" aria-busy={phase === 'erasing'}>
+        <h1 aria-label={phase === 'ready' ? welcome : 'Clearing terminal'}><span aria-hidden="true">{phase === 'ready' ? written : welcome.slice(0, remaining)}</span>{phase === 'ready' && <span className="cursor" aria-hidden="true">▌</span>}</h1>
+        <p id="question-instruction">{phase === 'ready' ? instruction : instruction.slice(0, Math.max(0, remaining - welcome.length))}</p>
+        {phase === 'ready' ? <form onSubmit={(event) => {event.preventDefault(); sendQuestion();}}>
+          <input aria-label="Your question" aria-describedby="question-instruction" placeholder="type here..." value={question} onChange={(event) => setQuestion(event.target.value)} autoComplete="off" maxLength={2000} required enterKeyHint="send" />
+          <button type="submit" aria-label="Send question" disabled={!question.trim()}>enter ↵</button>
+        </form> : <div className="sent-question">{question.trim().slice(0, Math.max(0, remaining - welcome.length - instruction.length))}</div>}
       </section>
-      <footer><span><span className="status-dot" aria-hidden="true" /> awaiting your curiosity</span><span>no wrong questions.</span></footer>
     </main>
   );
 }

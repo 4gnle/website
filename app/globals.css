@@ -2,54 +2,25 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-:root, .dark {
-  color-scheme: dark;
-  --background: #0b0d0b;
-  --foreground: #e0e5dd;
-  --primary: #b4f795;
-  --primary-foreground: #0b0d0b;
-  --muted: #151a14;
-  --muted-foreground: #8a9585;
-  --border: #2a3327;
-  --ring: #b4f795;
-  --radius: 0;
-}
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-border: var(--border);
-  --font-sans: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-}
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/ibm-plex-sans-regular.ttf') format('truetype'); }
+:root, .dark { color-scheme: dark; --background: #000; --foreground: #eee; --primary: #eee; --primary-foreground: #000; --muted: #000; --muted-foreground: #999; --border: transparent; --ring: #eee; --radius: 0; }
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); --color-primary: var(--primary); --color-border: var(--border); --font-sans: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; font-size: 16px; line-height: 1.65; }
-::selection { color: #0b0d0b; background: #b4f795; }
-.terminal { min-height: 100svh; display: flex; flex-direction: column; padding: 0 5vw; }
-.topbar { display: flex; align-items: center; justify-content: space-between; min-height: 88px; border-bottom: 1px solid #22281f; font-size: 14px; }
-.identity { display: flex; align-items: center; gap: 14px; }
-.terminal-icon { color: var(--primary); font-weight: bold; font-size: 20px; }
-.edition { color: #879080; }
-.console { width: min(100%, 840px); margin: auto; padding: 90px 0 110px; }
-.command { font-size: 14px; color: #a3ab9e; margin: 0 0 12px; }
-.path, .prompt { color: var(--primary); }
-.system { color: #8a9585; font-size: 14px; margin: 0; }
-h1 { font-size: clamp(26px, 4.1vw, 48px); line-height: 1.4; font-weight: 400; letter-spacing: -0.055em; white-space: pre-line; min-height: 2.8em; margin: 50px 0 22px; }
-.cursor { color: var(--primary); font-size: .8em; animation: blink 1.15s steps(1) infinite; }
-.invitation { margin: 0 0 35px; color: #bbc4b6; }
-.input-row { display: flex; align-items: center; gap: 18px; min-height: 68px; border-bottom: 1px solid #526147; border-top: 1px solid #293025; padding: 10px 0; }
-.input-row:focus-within { border-bottom-color: var(--primary); }
-.prompt { font-size: 24px; }
-input { min-width: 0; flex: 1; background: transparent; border: 0; outline: 0; color: var(--foreground); font: inherit; caret-color: var(--primary); padding: 8px 0; }
-input::placeholder { color: #727d6c; }
-button { background: transparent; border: 1px solid #46513e; color: var(--primary); font: inherit; font-size: 14px; padding: 6px 11px; cursor: pointer; }
-button:hover:not(:disabled) { background: #202a1b; }
-button:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
-button:disabled { opacity: .45; cursor: default; }
-.hint { font-size: 12px; color: #879080; margin-top: 15px; }
-.transcript { padding: 0 0 24px; overflow-wrap: anywhere; }
-footer { min-height: 72px; border-top: 1px solid #22281f; color: #879080; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 12px; }
-.status-dot { display: inline-block; width: 6px; height: 6px; margin-right: 10px; background: var(--primary); }
+body { margin: 0; background: #000; color: #eee; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; font-size: 16px; line-height: 1.65; }
+::selection { color: #000; background: #eee; }
+.terminal, .ending { min-height: 100svh; display: grid; place-items: center; padding: 32px; background: #000; }
+.console { width: min(100%, 640px); }
+h1 { font-size: clamp(28px, 4.1vw, 44px); line-height: 1.4; font-weight: 400; letter-spacing: -.045em; min-height: 1.4em; margin: 0 0 24px; }
+.cursor { font-size: .8em; animation: blink 1.15s steps(1) infinite; }
+.console p { min-height: 1.65em; margin: 0 0 24px; color: #aaa; }
+form { display: flex; align-items: center; gap: 20px; min-height: 48px; }
+input { min-width: 0; flex: 1; background: transparent; border: 0; outline: 0; color: #eee; font: inherit; caret-color: #eee; padding: 8px 0; }
+input::placeholder { color: #777; }
+button { flex-shrink: 0; background: transparent; border: 0; color: #bbb; font: inherit; font-size: 14px; padding: 12px 0 12px 12px; cursor: pointer; }
+button:hover:not(:disabled) { color: #fff; }
+button:focus-visible { outline: 1px solid #aaa; outline-offset: 6px; }
+button:disabled { opacity: .35; cursor: default; }
+.sent-question { min-height: 48px; padding: 8px 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+h1.final-message { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(28px, 4vw, 48px); font-weight: 400; letter-spacing: -.025em; color: #fff; line-height: 1.2; min-height: auto; margin: 0; text-align: center; }
 @keyframes blink { 50% { opacity: 0; } }
-@media (max-width: 600px) { .terminal { padding: 0 24px; } .topbar { min-height: 72px; } .edition { display: none; } .console { padding: 65px 0 80px; } h1 { margin-top: 38px; } .input-row { gap: 12px; } input { font-size: 14px; } footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 4px; padding: 16px 0; } }
 @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
