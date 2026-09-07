@@ -21,24 +21,25 @@ const story = [
 ];
 
 export default function Home() {
-  const [storyOpen, setStoryOpen] = useState(false);
-  const [overviewOpen, setOverviewOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<'story' | 'overview' | null>(null);
+  const storyOpen = openSection === 'story';
+  const overviewOpen = openSection === 'overview';
 
   return (
     <main className="story-page">
       <article className="story" aria-label="Angel's story">
         <header className="intro">
-          <h1>Hey, I’m Angel.<br />I like to build stuff. Usually from nothing to <em>something.</em></h1>
-          <p className="intro-description">A developer and former Product Lead, born in Venezuela. Most recently, I built and launched APEX on iOS and Android as its sole engineer.</p>
+          <h1><span className="greeting">Hey, I’m Angel.</span>I like to build stuff. Usually from nothing to <em>something.</em></h1>
+          <p className="intro-description">A developer and former Product Lead, born in Venezuela. Most recently, I built and launched <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a> on iOS and Android as its sole engineer.</p>
         </header>
         <div className="intro-actions">
-          <button type="button" aria-expanded={storyOpen} aria-controls="full-story" onClick={() => setStoryOpen(!storyOpen)}>
+          <button type="button" aria-expanded={storyOpen} aria-controls="full-story" onClick={() => setOpenSection(storyOpen ? null : 'story')}>
             {storyOpen ? 'HIDE MY STORY' : 'READ MY STORY'}
           </button>
-          <a href="/Angel_Gomez_Mobile_Software_Engineer.pdf" target="_blank" rel="noopener noreferrer">CHECK MY RESUME</a>
-          <button type="button" aria-expanded={overviewOpen} aria-controls="quick-overview" onClick={() => setOverviewOpen(!overviewOpen)}>
+          <button type="button" aria-expanded={overviewOpen} aria-controls="quick-overview" onClick={() => setOpenSection(overviewOpen ? null : 'overview')}>
             WHAT I’VE BUILT
           </button>
+          <a href="/Angel_Gomez_Mobile_Software_Engineer.pdf" target="_blank" rel="noopener noreferrer">CHECK MY RESUME</a>
         </div>
         <div className="availability"><span>Open to engineering roles</span><a href="mailto:ajgcdev@gmail.com" target="_blank" rel="noopener noreferrer">Let’s talk ↗</a></div>
         <section id="quick-overview" className="selected-work" aria-label="What I've built" hidden={!overviewOpen}>
@@ -52,7 +53,7 @@ export default function Home() {
             <a className="work-card" href="https://pear.garden" target="_blank" rel="noopener noreferrer">
               <span className="eyebrow">2022 — 2024 · FOUNDING ENGINEER → PRODUCT LEAD</span>
               <h3>Pear Protocol <span aria-hidden="true">↗</span></h3>
-              <p>Helped shape a trading product and led five engineers and one designer as the team reached $500M+ in trading volume.</p>
+              <p>Helped shape a trading product and led five engineers and one designer. Together, we reached $500M in trading volume and over 1,000 users. I also helped raise $3M in capital.</p>
               <span className="work-detail">Engineering · UI/UX · Product strategy</span>
             </a>
           </div>

@@ -24,6 +24,11 @@
   box-sizing: border-box;
 }
 
+.greeting {
+  display: block;
+  margin-bottom: 0.65em;
+}
+
 html {
   background: #000;
 }
