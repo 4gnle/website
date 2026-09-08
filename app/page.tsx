@@ -30,7 +30,7 @@ export default function Home() {
       <article className="story" aria-label="Angel's story">
         <header className="intro">
           <h1><span className="greeting">Hey, I’m Angel.</span>I like to build stuff. Usually from nothing to <em>something.</em></h1>
-          <p className="intro-description">A developer and former Product Lead, born in Venezuela. Most recently, I built and launched <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a> on iOS and Android as its sole engineer.</p>
+          <p className="intro-description">A developer and former Product Lead, born in Venezuela. Most recently, I built and launched <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a> on <a href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647" target="_blank" rel="noopener noreferrer">iOS</a> and <a href="https://play.google.com/store/apps/details?id=app.apexfitness.apex" target="_blank" rel="noopener noreferrer">Android</a> as its sole engineer.</p>
         </header>
         <div className="intro-actions">
           <button type="button" aria-expanded={storyOpen} aria-controls="full-story" onClick={() => setOpenSection(storyOpen ? null : 'story')}>
@@ -146,16 +146,6 @@ export default function Home() {
           </div>
         </footer>
       </article>
-
-      <a
-        className="surprise-button"
-        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Click for a surprise"
-      >
-        click for a surprise
-      </a>
     </main>
   );
 }
