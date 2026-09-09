@@ -25,8 +25,23 @@
 }
 
 .greeting {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 24px);
   margin-bottom: 0.65em;
+}
+
+.portrait {
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: center 55%;
+  border-radius: 14px;
+}
+
+@media (max-width: 420px) {
+  .greeting { font-size: .8em; }
 }
 
 html {

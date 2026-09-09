@@ -5,19 +5,19 @@ import { Fragment, useState } from 'react';
 const story = [
   "Hey, my name is Angel and I was born in Venezuela in 1996.",
   "Since I was a child I've loved computers. I got my first computer when I was about 10 years old and it changed my life.",
-  "I developed plugins and mods for my favorite videogames, watched hundreds of pirated movies, and read hundreds of Wikipedia pages. But it was only entertainment and curiosity.",
-  "Soon enough, I had to earn a living to keep it going. I started working when I was 14 making hamburger patties with my Italian uncle. My second job was making hot dogs and burgers at his food kiosk when I was about 17.",
-  "Then I decided that wasn't the job I wanted to do for the rest of my life. While I was studying Modern Languages in college, I found I could make money on the internet. And that's when I discovered the endless opportunities online.",
+  "I developed plugins and mods for my favorite videogames, watched thousands of movies, and read hundreds of Wikipedia pages. My curiosity led to learning about ANYTHING I could land my hands on.",
+  "But it wasn't only curiosity. I did it for a purpose. I wanted to learn more about the world around me. Sadly, I couldn't ONLY do that with my life...",
+  "Mostly because I started working at 14, making hamburger patties with my Italian uncle and later cooking at his food kiosk. So I couldn't spend all my time on the computer.",
+  "Eventually, I decided that wasn't the job I wanted to do for the rest of my life. While studying Modern Languages in college, I started looking for ways to earn a living online.",
   "After searching frenetically for opportunities, I found something cool: you didn't have to join scams or pyramid schemes to make money, you could actually SELL YOUR SKILLS.",
-  "That's when my reading and writing hobby became more useful. A few months in, I got my first online gig writing an SEO blog post for a gambling website (not proud of that, but I was desperate at the moment, what can I say). It was a success.",
-  "I made more money on that gig than I made cooking for my uncle in a month. So I couldn't stop...",
-  "Months later I had enough work to be able to hire other people to help me. I was literally running an agency by myself. A nameless agency, but it was working. I went from making $30 a month cooking for my uncle, to making over $2k a month writing online.",
-  "That was enough to update my ambitions. I could live in almost any other country by that time. And sure enough, 2 years later I made enough money to be able to move out of my home country.",
+  "In 2017, my reading and writing hobby became my first online gig: a paid SEO article. It worked, and I kept going.",
+  "After hundreds of articles, blog posts and landing pages, the work grew so much that I had to hire other writers to help me. Without really planning it, I'd built a small writing agency. I went from making $30 a month cooking for my uncle to over $2k a month writing online.",
+  "Moving abroad started to feel possible. Eventually, I saved enough to leave Venezuela.",
   "So I did.",
-  "By that point I had already been working as a content writer and copywriter for about 4 years and was making enough money to sustain a life in a country that was SUBSTANTIALLY more expensive than where I came from.",
-  "But even though the money was good, I wasn't enjoying the work as much anymore. Not only because I knew I didn't want to keep doing this for the rest of my life, but also because I knew there were more opportunities out there.",
-  "So I decided to make the BIGGEST jump. I started learning how to code to become a developer.",
-  "And that's where my life REALLY started...",
+  "Writing supported my life in a country that was SUBSTANTIALLY more expensive than where I came from. It remained my work until 2021.",
+  "But I wanted more. Making plugins and mods for videogames had given me a glimpse of what I could do with software. Even though I'd barely known what I was doing back then, I felt I had a talent for it.",
+  "So, while I was still writing, I started learning how to code. I was ready to make the BIGGEST jump yet and become a software engineer.",
+  "And this is where EVERYTHING changed...",
 ];
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
     <main className="story-page">
       <article className="story" aria-label="Angel's story">
         <header className="intro">
-          <h1><span className="greeting">Hey, I’m Angel.</span>I like to build stuff. Usually from nothing to <em>something.</em></h1>
+          <h1><span className="greeting"><img className="portrait" src="/angel.png" alt="Angel Gomez" width={90} height={90} /> <span>Hey, I’m Angel.</span></span>I like to build stuff. Usually from nothing to <em>something.</em></h1>
           <p className="intro-description">A developer and former Product Lead, born in Venezuela. Most recently, I built and launched <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a> on <a href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647" target="_blank" rel="noopener noreferrer">iOS</a> and <a href="https://play.google.com/store/apps/details?id=app.apexfitness.apex" target="_blank" rel="noopener noreferrer">Android</a> as its sole engineer.</p>
         </header>
         <div className="intro-actions">
@@ -63,8 +63,8 @@ export default function Home() {
         <h2 className="chapter">{story[0]}</h2>
         {story.slice(1).map((paragraph, index) => (
           <Fragment key={paragraph}>
-            {index === 3 && <h2 className="chapter"><span>02 · 2017 — 2021</span>Making a living online</h2>}
-            <p key={paragraph} className={paragraph === 'So I did.' || paragraph === "And that's where my life REALLY started..." ? 'turning-point' : undefined}>
+            {index === 5 && <h2 className="chapter"><span>02 · 2017 — 2021</span>Making a living online</h2>}
+            <p key={paragraph} className={paragraph === 'So I did.' || paragraph === "And this is where EVERYTHING changed..." ? 'turning-point' : undefined}>
               {paragraph.includes('SELL YOUR SKILLS') ? (
                 <>
                   {paragraph.split('SELL YOUR SKILLS')[0]}
