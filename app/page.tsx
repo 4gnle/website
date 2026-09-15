@@ -3,7 +3,7 @@
 import { Fragment, useState } from 'react';
 
 const story = [
-  "Hey, my name is Angel and I was born in Venezuela in 1996.",
+  "My story started in 1996.",
   "Since I was a child I've loved computers. I got my first computer when I was about 10 years old and it changed my life.",
   "I developed plugins and mods for my favorite videogames, watched thousands of movies, and read hundreds of Wikipedia pages. My curiosity led to learning about ANYTHING I could land my hands on.",
   "But it wasn't only curiosity. I did it for a purpose. I wanted to learn more about the world around me. Sadly, I couldn't ONLY do that with my life...",
@@ -12,7 +12,7 @@ const story = [
   "After searching frenetically for opportunities, I found something cool: you didn't have to join scams or pyramid schemes to make money, you could actually SELL YOUR SKILLS.",
   "In 2017, my reading and writing hobby became my first online gig: a paid SEO article. It worked, and I kept going.",
   "After hundreds of articles, blog posts and landing pages, the work grew so much that I had to hire other writers to help me. Without really planning it, I'd built a small writing agency. I went from making $30 a month cooking for my uncle to over $2k a month writing online.",
-  "Moving abroad started to feel possible. Eventually, I saved enough to leave Venezuela.",
+  "Moving abroad started to feel possible. Eventually, I saved enough to leave my home country.",
   "So I did.",
   "Writing supported my life in a country that was SUBSTANTIALLY more expensive than where I came from. It remained my work until 2021.",
   "But I wanted more. Making plugins and mods for videogames had given me a glimpse of what I could do with software. Even though I'd barely known what I was doing back then, I felt I had a talent for it.",
@@ -31,6 +31,13 @@ export default function Home() {
         <header className="intro">
           <h1><span className="greeting"><img className="portrait" src="/angel.png" alt="Angel Gomez" width={90} height={90} /> <span>Hey, I’m Angel.</span></span>I like to build stuff. Usually from nothing to <em>something.</em></h1>
           <p className="intro-description">A developer and former Product Lead, born in Venezuela. Most recently, I built and launched <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a> on <a href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647" target="_blank" rel="noopener noreferrer">iOS</a> and <a href="https://play.google.com/store/apps/details?id=app.apexfitness.apex" target="_blank" rel="noopener noreferrer">Android</a> as its sole engineer.</p>
+          <div className="current-location">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            <span>Currently living in: Santiago, Chile</span>
+          </div>
         </header>
         <div className="intro-actions">
           <button type="button" aria-expanded={storyOpen} aria-controls="full-story" onClick={() => setOpenSection(storyOpen ? null : 'story')}>
