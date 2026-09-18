@@ -2,8 +2,18 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Angel Gomez — My story',
-  description: 'The story of how Angel Gomez found his way from Venezuela to building a life online.',
+  title: 'Angel',
+  description: 'How to find your way',
+  openGraph: {
+    title: 'Angel',
+    description: 'How to find your way',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Angel',
+    description: 'How to find your way',
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
