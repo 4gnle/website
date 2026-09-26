@@ -76,13 +76,7 @@ export default function Home() {
           <Fragment key={paragraph}>
             {paragraph.startsWith('Eventually, I decided') && <h2 className="chapter"><span>2017 TO 2021</span>Making a living online</h2>}
             <p key={paragraph} className={paragraph === 'So I did.' || paragraph === "And this is where EVERYTHING changed..." ? 'turning-point' : undefined}>
-              {paragraph.includes('SELL YOUR SKILLS') ? (
-                <>
-                  {paragraph.split('SELL YOUR SKILLS')[0]}
-                  <a href="https://www.freelancer.com/u/angelgomez33" target="_blank" rel="noopener noreferrer">SELL YOUR SKILLS</a>
-                  {paragraph.split('SELL YOUR SKILLS')[1]}
-                </>
-              ) : paragraph}
+              {paragraph}
             </p>
           </Fragment>
           ))}
