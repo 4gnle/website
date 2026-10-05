@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from "react";
 
 const story = [
   "My story started in 1996.",
@@ -20,140 +20,391 @@ const story = [
 ];
 
 export default function Home() {
-  const [openSection, setOpenSection] = useState<'story' | 'overview' | null>(null);
-  const storyOpen = openSection === 'story';
-  const overviewOpen = openSection === 'overview';
+  const [openSection, setOpenSection] = useState<"story" | "overview" | null>(
+    null,
+  );
+  const storyOpen = openSection === "story";
+  const overviewOpen = openSection === "overview";
+  const storyDialog = useRef<HTMLDialogElement>(null);
+  const overviewDialog = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = openSection === "story" ? storyDialog.current : openSection === "overview" ? overviewDialog.current : null;
+    if (!dialog) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog.showModal();
+    dialog.scrollTop = 0;
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [openSection]);
 
   return (
     <main className="story-page">
       <article className="story" aria-label="Angel's story">
+        <nav className="social-nav" aria-label="Social links">
+          <div className="social-links">
+            <a
+              href="https://www.x.com/4gnle"
+              aria-label="X / Twitter (opens in a new tab)"
+              title="X / Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.49h2.039L6.487 3.24H4.3l13.31 17.403Z" />
+              </svg>
+            </a>
+            <a
+              href="https://www.github.com/4gnle"
+              aria-label="GitHub (opens in a new tab)"
+              title="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .297a12 12 0 0 0-3.793 23.385c.6.111.82-.261.82-.577v-2.234c-3.338.726-4.043-1.416-4.043-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 6.006 0c2.291-1.552 3.297-1.23 3.297-1.23.655 1.652.243 2.873.119 3.176.769.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222v3.292c0 .319.216.694.825.576A12.001 12.001 0 0 0 12 .297Z" />
+              </svg>
+            </a>
+          </div>
+        </nav>
         <header className="intro">
-          <h1><span className="greeting"><img className="portrait" src="/angel.png" alt="Angel Gomez" width={90} height={90} /> <span>Hey, I’m Angel.</span></span>I like to build stuff. Usually from nothing to <em>something.</em></h1>
-          <p className="intro-description">I’m a developer with a product mindset, full of ideas and a general builder attitude.</p>
-          <p className="intro-description">I love working on early-stage projects where every step I take matters and has a real impact.</p>
-          <p className="intro-description">Most recently, I built and launched <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a> on <a href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647" target="_blank" rel="noopener noreferrer">iOS</a> and <a href="https://play.google.com/store/apps/details?id=app.apexfitness.apex" target="_blank" rel="noopener noreferrer">Android</a> as its sole engineer.</p>
+          <h1>
+            <span className="greeting">
+              <img
+                className="portrait"
+                src="/angel.png"
+                alt="Angel Gomez"
+                width={90}
+                height={90}
+              />{" "}
+              <span>Hey, I’m Angel.</span>
+            </span>
+            I like to build stuff. Usually from nothing to <em>something.</em>
+          </h1>
+          <p className="intro-description">
+            I’m a product engineer building web, mobile and AI products.
+          </p>
+          <p className="intro-description">
+            Built{" "}
+            <a
+              href="https://www.apexfitness.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              APEX
+            </a>{" "}
+            on{" "}
+            <a
+              href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              iOS
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://play.google.com/store/apps/details?id=app.apexfitness.apex"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Android
+            </a>{" "}
+            solo. Previously Product Lead at <a
+              href="https://www.pear.garden"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pear Protocol
+            </a>
+          </p>
           <div className="current-location">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              aria-hidden="true"
+            >
               <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
               <circle cx="12" cy="10" r="2.5" />
             </svg>
-            <span>Currently living in: Santiago, Chile</span>
-          </div>
-          <div className="current-location" style={{ marginTop: 12 }}>
-            <span>Currently looking for: the opportunity to help shape a REAL business go from 0 to 1</span>
+            <span>Santiago, Chile</span>
           </div>
         </header>
         <div className="intro-actions">
-          <button type="button" aria-expanded={storyOpen} aria-controls="full-story" onClick={() => setOpenSection(storyOpen ? null : 'story')}>
-            {storyOpen ? 'HIDE MY STORY' : 'READ MY STORY'}
+          <button
+            type="button"
+            aria-expanded={storyOpen}
+            aria-controls="full-story"
+            aria-haspopup="dialog"
+            onClick={() => setOpenSection(storyOpen ? null : "story")}
+          >
+            READ MY STORY
           </button>
-          <button type="button" aria-expanded={overviewOpen} aria-controls="quick-overview" onClick={() => setOpenSection(overviewOpen ? null : 'overview')}>
+          <button
+            type="button"
+            aria-expanded={overviewOpen}
+            aria-controls="quick-overview"
+            aria-haspopup="dialog"
+            onClick={() => setOpenSection(overviewOpen ? null : "overview")}
+          >
             WHAT I’VE BUILT
           </button>
-          <a href="/Angel_Gomez_Mobile_Software_Engineer.pdf" target="_blank" rel="noopener noreferrer">CHECK MY RESUME</a>
+          <a
+            href="/Angel_Gomez_Product_Engineer_CV_Final.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CHECK MY RESUME
+          </a>
         </div>
-        <div className="availability"><span>Open to engineering roles</span><a href="mailto:ajgcdev@gmail.com" target="_blank" rel="noopener noreferrer">Let’s talk ↗</a></div>
-        <section id="quick-overview" className="selected-work" aria-label="What I've built" hidden={!overviewOpen}>
-          <div className="work-grid">
-            <a className="work-card" href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">
-              <span className="eyebrow">2025 TO PRESENT · SOLO ENGINEER</span>
-              <h3>APEX <span aria-hidden="true">↗</span></h3>
-              <p>A fitness and nutrition app with AI coaching. I designed it, built the app and backend, and launched it on iOS and Android.</p>
-              <span className="work-detail">React Native · Expo · TypeScript</span>
-            </a>
-            <a className="work-card" href="https://pear.garden" target="_blank" rel="noopener noreferrer">
-              <span className="eyebrow">2022 TO 2024 · FOUNDING ENGINEER, THEN PRODUCT LEAD</span>
-              <h3>Pear Protocol <span aria-hidden="true">↗</span></h3>
-              <p>Helped shape a trading product and led five engineers and one designer. Together, we reached $500M in trading volume and over 1,000 users. I also helped raise $3M in capital.</p>
-              <span className="work-detail">Engineering · UI/UX · Product strategy</span>
-            </a>
-          </div>
+        <div className="availability">
+          <span>Open to product and founding engineer roles</span>
+          <a
+            href="mailto:ajgcdev@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Let’s talk ↗
+          </a>
+        </div>
+        <section className="writing" aria-labelledby="writing-title">
+          <h2 id="writing-title">Writing</h2>
+          <ul>
+            <li>
+              <a
+                href="https://x.com/4gnle/status/2106888489052606908"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                How to navigate life in times of uncertainty
+              </a>
+              <time dateTime="2026-10-04T23:25:34.542Z">October 4, 2026</time>
+            </li>
+            <li>
+              <a
+                href="https://x.com/4gnle/status/2106374057562161414"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Agency is overrated, it’s grit all the way down
+              </a>
+              <time dateTime="2026-10-03T13:21:24.517Z">October 3, 2026</time>
+            </li>
+            <li>
+              <a
+                href="https://x.com/4gnle/status/2105823288668647464"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                It’s almost over
+              </a>
+              <time dateTime="2026-10-02T00:52:50.980Z">October 1, 2026</time>
+            </li>
+            <li>
+              <a
+                href="https://x.com/4gnle/status/2105437794738868537"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The everything app... too big and smart to compete against
+              </a>
+              <time dateTime="2026-09-30T23:21:02.065Z">September 30, 2026</time>
+            </li>
+          </ul>
         </section>
-        <div id="full-story" hidden={!storyOpen}>
-        <div className="reading-progress" aria-hidden="true" />
-        <h2 className="chapter">{story[0]}</h2>
-        {story.slice(1).map((paragraph) => (
-          <Fragment key={paragraph}>
-            {paragraph.startsWith('Eventually, I decided') && <h2 className="chapter"><span>2017 TO 2021</span>Making a living online</h2>}
-            <p key={paragraph} className={paragraph === 'So I did.' || paragraph === "And this is where EVERYTHING changed..." ? 'turning-point' : undefined}>
-              {paragraph}
-            </p>
-          </Fragment>
-          ))}
-        <h2 className="chapter"><span>2021 TO 2024</span>Building with a team</h2>
-        <p>
-          My first job as a coder was at <a href="https://reimagined.fi/" target="_blank" rel="noopener noreferrer">Reimagined Finance</a>.
-          {' '}After a year of learning how to code, I landed a front-end gig and took ownership of the entire front end for a now-dead project that was pretty neat when it was alive.
-        </p>
-        <p>
-          I worked there for a year, from November 2021 to November 2022. When ReFi came to an end, the founders and I decided to launch a new project: <a href="https://pear.garden" target="_blank" rel="noopener noreferrer">Pear Protocol</a>.
-        </p>
-        <p>
-          I joined Pear as a founding engineer and Lead Developer, then became Product Lead. I stayed until November 2024.
-        </p>
-        <p>
-          Those three years were some of the most productive of my life. I went from coding interfaces to planning the entire UI/UX and helping shape a product I was proud of. Along the way, I led a team of five engineers and one designer.
-        </p>
-        <p>
-          During my time at Pear, we reached more than 1,000 users, generated over $500,000 in revenue on more than $500 million in trading volume, and raised over $3 million to keep the project going.
-        </p>
-        <p>
-          I learned by doing, and from my coworkers (some of the smartest people I&apos;ve ever met).
-        </p>
-        <p>
-          After Pear, I wanted to try building a product of my own.
-        </p>
-        <p className="turning-point">That&apos;s when APEX was born...</p>
-        <h2 className="chapter"><span>2025 TO PRESENT</span>Building something of my own</h2>
-        <p>
-          APEX was completely different from what I’d done at Pear. This time, I was working by myself. And I was stepping into something new: mobile development.
-        </p>
-        <p>
-          The closest I’d come was making websites work on smaller screens. Building an app felt like a massive undertaking, especially because I wanted to turn it into a product people would pay for.
-        </p>
-        <p>
-          I felt ready to try, even with so much left to learn.
-        </p>
-        <p>
-          <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX Lifting and Diet Coach</a> became my WHOLE life. I’d never put so much of myself into a project.
-        </p>
-        <p>
-          I went from never having built a mobile app to launching on iOS and Android and getting hundreds of installs in a month. I handled everything from the design and code to the website and launch.
-        </p>
-        <p>
-          I learned to use LLMs to help people plan their training and nutrition.
-        </p>
-        <p>
-          I even started an Instagram account for it, where I consistently post fitness content. As of September 2026, it has more than 1,800 followers.
-        </p>
-        <h2 className="chapter">What’s next?</h2>
-        <p>
-          Now I’m looking for my next role. I’ve built on my own and led a team, and I’d like to put both experiences to work.
-        </p>
-        <p>
-          I’d like to keep building software and learning from the people I work with.
-        </p>
-        <p className="story-ending">
-          I’m still the same kid who got his first computer and wanted to figure everything out. Now I have the chance to build some of it.
-        </p>
-        </div>
-        <footer className="social-footer">
-          <h2>You can find me at</h2>
-          <div className="social-links">
-            <a href="https://www.x.com/4gnle" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.49h2.039L6.487 3.24H4.3l13.31 17.403Z" /></svg>
-              X / Twitter <span aria-hidden="true">↗</span>
+        <dialog
+          ref={overviewDialog}
+          id="quick-overview"
+          className="content-modal projects-modal"
+          aria-labelledby="projects-modal-title"
+          onCancel={() => setOpenSection(null)}
+          onClick={(event) => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setOpenSection(null); } }}
+        >
+          <div className="modal-bar">
+            <h2 id="projects-modal-title">What I’ve built</h2>
+            <button type="button" className="modal-close" onClick={() => setOpenSection(null)} autoFocus aria-label="Close projects">×</button>
+          </div>
+          <div className="work-grid">
+            <a
+              className="work-card"
+              href="https://www.apexfitness.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="eyebrow">2025 TO PRESENT · SOLO ENGINEER</span>
+              <h3>
+                APEX <span aria-hidden="true">↗</span>
+              </h3>
+              <p>
+                A fitness and nutrition app with AI coaching. I designed it,
+                built the app and backend, and launched it on iOS and Android.
+              </p>
+              <span className="work-detail">
+                React Native · Expo · TypeScript · Node.js · Firebase · AI/LLMs
+              </span>
             </a>
-            <a href="https://www.instagram.com/4gnlefitness" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
-              Instagram <span aria-hidden="true">↗</span>
-            </a>
-            <a href="https://www.github.com/4gnle" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297a12 12 0 0 0-3.793 23.385c.6.111.82-.261.82-.577v-2.234c-3.338.726-4.043-1.416-4.043-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 6.006 0c2.291-1.552 3.297-1.23 3.297-1.23.655 1.652.243 2.873.119 3.176.769.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222v3.292c0 .319.216.694.825.576A12.001 12.001 0 0 0 12 .297Z" /></svg>
-              GitHub <span aria-hidden="true">↗</span>
+            <a
+              className="work-card"
+              href="https://pear.garden"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="eyebrow">
+                2022 TO 2024 · FOUNDING ENGINEER, THEN PRODUCT LEAD
+              </span>
+              <h3>
+                Pear Protocol <span aria-hidden="true">↗</span>
+              </h3>
+              <p>
+                Helped shape a trading product and led five engineers and one
+                designer. Together, we reached $500M in trading volume and over
+                1,000 users. I also helped raise $3M in capital.
+              </p>
+              <span className="work-detail">
+                React · TypeScript · Node.js · DeFi · Product Strategy ·
+                Technical Leadership
+              </span>
             </a>
           </div>
-        </footer>
+        </dialog>
+        <dialog ref={storyDialog} id="full-story" className="content-modal story-modal" aria-labelledby="story-modal-title" onCancel={() => setOpenSection(null)}>
+          <div className="modal-bar">
+            <h2 id="story-modal-title">My story</h2>
+            <button type="button" className="modal-close" onClick={() => setOpenSection(null)} autoFocus aria-label="Close story">×</button>
+          </div>
+          <div className="story modal-story-content">
+          <h2 className="chapter">{story[0]}</h2>
+          {story.slice(1).map((paragraph) => (
+            <Fragment key={paragraph}>
+              {paragraph.startsWith("Eventually, I decided") && (
+                <h2 className="chapter">
+                  <span>2017 TO 2021</span>Making a living online
+                </h2>
+              )}
+              <p
+                key={paragraph}
+                className={
+                  paragraph === "So I did." ||
+                  paragraph === "And this is where EVERYTHING changed..."
+                    ? "turning-point"
+                    : undefined
+                }
+              >
+                {paragraph}
+              </p>
+            </Fragment>
+          ))}
+          <h2 className="chapter">
+            <span>2021 TO 2024</span>Building with a team
+          </h2>
+          <p>
+            My first software engineering role was at{" "}
+            <a
+              href="https://reimagined.fi/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Reimagined Finance
+            </a>
+            . After a year of learning how to code, I joined as a frontend
+            engineer and took ownership of the entire front end for a now-dead
+            project that was pretty neat when it was alive.
+          </p>
+          <p>
+            I worked there for a year, from November 2021 to November 2022. When
+            ReFi came to an end, the founders and I decided to launch a new
+            project:{" "}
+            <a
+              href="https://pear.garden"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pear Protocol
+            </a>
+            .
+          </p>
+          <p>
+            I joined Pear as a founding engineer and Lead Developer, then became
+            Product Lead. I stayed until November 2024.
+          </p>
+          <p>
+            Those three years were some of the most productive of my life. I
+            went from coding interfaces to planning the entire UI/UX and helping
+            shape a product I was proud of. Along the way, I led a team of five
+            engineers and one designer.
+          </p>
+          <p>
+            During my time at Pear, we reached more than 1,000 users, generated
+            over $500,000 in revenue on more than $500 million in trading
+            volume, and raised over $3 million to keep the project going.
+          </p>
+          <p>
+            I learned by doing, and from my coworkers (some of the smartest
+            people I&apos;ve ever met).
+          </p>
+          <p>After Pear, I wanted to try building a product of my own.</p>
+          <p className="turning-point">That&apos;s when APEX was born...</p>
+          <h2 className="chapter">
+            <span>2025 TO PRESENT</span>Building something of my own
+          </h2>
+          <p>
+            APEX was completely different from what I’d done at Pear. This time,
+            I was working by myself. And I was stepping into something new:
+            mobile development.
+          </p>
+          <p>
+            The closest I’d come was making websites work on smaller screens.
+            Building an app felt like a massive undertaking, especially because
+            I wanted to turn it into a product people would pay for.
+          </p>
+          <p>I felt ready to try, even with so much left to learn.</p>
+          <p>
+            <a
+              href="https://www.apexfitness.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              APEX Lifting and Diet Coach
+            </a>{" "}
+            became my WHOLE life. I’d never put so much of myself into a
+            project.
+          </p>
+          <p>
+            I went from never having built a mobile app to launching on iOS and
+            Android and getting hundreds of installs in a month. I handled
+            everything from the design and code to the website and launch.
+          </p>
+          <p>
+            I learned to use LLMs to help people plan their training and
+            nutrition.
+          </p>
+          <p>
+            I even started an Instagram account for it, where I consistently
+            post fitness content. As of September 2026, it has more than 1,800
+            followers.
+          </p>
+          <h2 className="chapter">What’s next?</h2>
+          <p>
+            Now I’m looking for my next role. I’ve built on my own and led a
+            team, and I’d like to put both experiences to work.
+          </p>
+          <p>
+            I’d like to keep building software and learning from the people I
+            work with.
+          </p>
+          <p className="story-ending">
+            I’m still the same kid who got his first computer and wanted to
+            figure everything out. Now I have the chance to build some of it.
+          </p>
+          </div>
+        </dialog>
+
       </article>
     </main>
   );

@@ -17,11 +17,22 @@
   --muted-foreground: #999;
   --border: transparent;
   --ring: #eee;
-  --radius: 0;
+  --radius: 4px;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.writing { margin-top: 48px; }
+.writing h2 { margin: 0 0 24px; font-size: 28px; font-weight: 400; letter-spacing: -.025em; }
+.writing ul { list-style: none; padding: 0; margin: 0; }
+.writing li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: baseline; margin: 0 0 22px; font-size: clamp(18px, 2vw, 21px); line-height: 1.5; }
+.writing-source { display: block; margin-top: 28px; font-size: 14px; color: #999; }
+.writing time { display: block; margin-top: 5px; font-size: 14px; color: #999; }
+@media (max-width: 600px) {
+  .writing li { grid-template-columns: 1fr; gap: 2px; }
+  .writing time { margin-top: 0; }
 }
 
 .current-location {
@@ -111,6 +122,7 @@ body {
   min-height: 56px;
   padding: 16px 12px;
   border: 1px solid #777;
+  border-radius: var(--radius);
   background: transparent;
   color: #eee;
   font: inherit;
@@ -132,9 +144,19 @@ body {
   outline-offset: 4px;
 }
 
-#full-story {
-  margin-top: clamp(56px, 9vw, 104px);
-}
+.content-modal { background: #000; color: #dedede; padding: 0; border: 1px solid #333; border-radius: var(--radius); font: inherit; }
+.content-modal::backdrop { background: rgba(0, 0, 0, .8); backdrop-filter: blur(5px); }
+.projects-modal { width: min(860px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; border-radius: var(--radius); overflow-y: auto; overscroll-behavior: contain; }
+.projects-modal .work-grid { padding: 0 24px 24px; }
+#full-story.story-modal { width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; overflow-y: auto; overscroll-behavior: contain; }
+.modal-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; background: #000; }
+.modal-bar h2 { font-size: 18px; font-weight: 400; margin: 0; }
+.modal-close { min-width: 44px; min-height: 44px; padding: 8px; font: inherit; font-size: 28px; line-height: 1; color: #eee; background: transparent; border: 0; cursor: pointer; }
+.modal-close:hover { color: #fff; }
+.modal-close:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.modal-story-content { padding: 24px 24px 100px; }
+.modal-story-content > .chapter:first-child { margin-top: 0; padding-top: 0; }
+@media (max-width: 600px) { .projects-modal .work-grid { padding: 0 16px 16px; } .modal-bar { padding: 12px 16px; } }
 
 .story p {
   margin: 0 0 1.55em;
@@ -156,13 +178,13 @@ body {
 .intro h1 { margin: 28px 0; font-size: clamp(36px, 5.4vw, 60px); line-height: 1.12; }
 .story .intro-description { max-width: 640px; color: #bbb; font-size: clamp(18px, 2vw, 21px); }
 .skills { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 36px; }
-.skills span { border: 1px solid #333; padding: 5px 12px; border-radius: 20px; font-size: 14px; color: #bbb; }
+.skills span { border: 1px solid #333; padding: 5px 12px; border-radius: var(--radius); font-size: 14px; color: #bbb; }
 .availability { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-top: 24px; font-size: 14px; color: #aaa; }
 .availability > span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #eee; margin-right: 9px; }
 .selected-work { margin-top: 80px; }
 .selected-work > h2 { margin-bottom: 20px; }
 .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.story .work-card { display: flex; flex-direction: column; border: 1px solid #333; padding: 24px; text-decoration: none; background: #090909; transition: border-color .2s, background .2s; }
+.story .work-card { display: flex; flex-direction: column; border: 1px solid #333; border-radius: var(--radius); padding: 24px; text-decoration: none; background: #090909; transition: border-color .2s, background .2s; }
 .story .work-card:hover { border-color: #888; background: #111; }
 .work-card .eyebrow { font-size: 12px; letter-spacing: .04em; }
 .work-card h3 { display: flex; justify-content: space-between; gap: 12px; margin: 24px 0 14px; font-size: 26px; font-weight: 400; letter-spacing: -.03em; }
@@ -172,10 +194,12 @@ body {
 .chapter { font-size: clamp(28px, 4vw, 40px); font-weight: 400; line-height: 1.2; letter-spacing: -.025em; padding-top: 32px; margin: 80px 0 36px; }
 .chapter span { display: block; font-size: 13px; letter-spacing: .09em; color: #999; margin-bottom: 16px; }
 #full-story:not([hidden]) { animation: story-reveal .35s ease-out; }
-.social-footer { margin-top: 80px; padding-top: 32px; }
-.social-footer h2 { font-size: 20px; font-weight: 400; margin: 0 0 20px; }
-.social-links { display: flex; flex-wrap: wrap; gap: 12px; }
-.story .social-links a { display: inline-flex; align-items: center; gap: 12px; border: 1px solid #444; padding: 12px 18px; font-size: 15px; text-decoration: none; }
+.social-nav { margin-bottom: 16px; }
+.social-nav + .intro h1 { margin-top: 0; }
+.social-links { display: flex; gap: 4px; }
+.social-nav a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: #bbb; border-radius: 8px; text-decoration: none; }
+.social-nav a:hover { color: #fff; }
+.social-nav a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .social-links svg { width: 19px; height: 19px; }
 .social-links a:hover { background: #171717; }
 @keyframes story-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -222,7 +246,7 @@ body {
   min-height: 46px;
   padding: 11px 18px;
   border: 1px solid #444;
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: rgba(0, 0, 0, 0.88);
   color: #aaa;
   font-size: 14px;
@@ -249,7 +273,7 @@ body {
   }
 
   .story-page {
-    padding-top: 56px;
+    padding-top: 80px;
   }
 
   .story h1 {
