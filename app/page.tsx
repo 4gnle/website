@@ -44,32 +44,6 @@ export default function Home() {
   return (
     <main className="story-page">
       <article className="story" aria-label="Angel's story">
-        <nav className="social-nav" aria-label="Social links">
-          <div className="social-links">
-            <a
-              href="https://www.x.com/4gnle"
-              aria-label="X / Twitter (opens in a new tab)"
-              title="X / Twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.49h2.039L6.487 3.24H4.3l13.31 17.403Z" />
-              </svg>
-            </a>
-            <a
-              href="https://www.github.com/4gnle"
-              aria-label="GitHub (opens in a new tab)"
-              title="GitHub"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 .297a12 12 0 0 0-3.793 23.385c.6.111.82-.261.82-.577v-2.234c-3.338.726-4.043-1.416-4.043-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 6.006 0c2.291-1.552 3.297-1.23 3.297-1.23.655 1.652.243 2.873.119 3.176.769.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222v3.292c0 .319.216.694.825.576A12.001 12.001 0 0 0 12 .297Z" />
-              </svg>
-            </a>
-          </div>
-        </nav>
         <header className="intro">
           <h1>
             <span className="greeting">
@@ -120,21 +94,6 @@ export default function Home() {
               Pear Protocol
             </a>
           </p>
-          <div className="current-location">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              aria-hidden="true"
-            >
-              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" />
-              <circle cx="12" cy="10" r="2.5" />
-            </svg>
-            <span>Santiago, Chile</span>
-          </div>
         </header>
         <div className="intro-actions">
           <button
@@ -172,6 +131,34 @@ export default function Home() {
           >
             Let’s talk ↗
           </a>
+        </div>
+        <div className="contact-details">
+        <nav className="social-nav" aria-label="Social links">
+          <div className="social-links">
+            <a
+              href="https://www.x.com/4gnle"
+              aria-label="X / Twitter (opens in a new tab)"
+              title="X / Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.64 7.584H.47l8.6-9.835L0 1.154h7.594l5.243 6.932 6.064-6.933Zm-1.29 19.49h2.039L6.487 3.24H4.3l13.31 17.403Z" />
+              </svg>
+            </a>
+            <a
+              href="https://www.github.com/4gnle"
+              aria-label="GitHub (opens in a new tab)"
+              title="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .297a12 12 0 0 0-3.793 23.385c.6.111.82-.261.82-.577v-2.234c-3.338.726-4.043-1.416-4.043-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 6.006 0c2.291-1.552 3.297-1.23 3.297-1.23.655 1.652.243 2.873.119 3.176.769.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222v3.292c0 .319.216.694.825.576A12.001 12.001 0 0 0 12 .297Z" />
+              </svg>
+            </a>
+          </div>
+        </nav>
         </div>
         <section className="writing" aria-labelledby="writing-title">
           <h2 id="writing-title">Writing</h2>

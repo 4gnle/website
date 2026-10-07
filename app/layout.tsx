@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-const title = 'Angel Gomez | Product Engineer — React, TypeScript & AI';
-const description = 'Product engineer in Santiago building web, mobile and AI products with TypeScript, React, React Native, Expo and Node.js. Former Product Lead at Pear Protocol.';
+const title = 'Angel Gomez | Product Engineer LATAM';
+const description = 'Product engineer based in Santiago, Chile, LATAM. Built and launched APEX. Former Product Lead at Pear Protocol.';
 
 export const metadata: Metadata = {
   title,
