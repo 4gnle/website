@@ -183,8 +183,6 @@ body {
 .story .intro-description { max-width: 640px; color: #bbb; font-size: clamp(18px, 2vw, 21px); }
 .skills { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 36px; }
 .skills span { border: 1px solid #333; padding: 5px 12px; border-radius: var(--radius); font-size: 14px; color: #bbb; }
-.availability { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-top: 24px; font-size: 14px; color: #aaa; }
-.availability > span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #eee; margin-right: 9px; }
 .selected-work { margin-top: 80px; }
 .selected-work > h2 { margin-bottom: 20px; }
 .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }

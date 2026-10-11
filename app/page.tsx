@@ -122,16 +122,6 @@ export default function Home() {
             CHECK MY RESUME
           </a>
         </div>
-        <div className="availability">
-          <span>Open to product and founding engineer roles</span>
-          <a
-            href="mailto:ajgcdev@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Let’s talk ↗
-          </a>
-        </div>
         <div className="contact-details">
         <nav className="social-nav" aria-label="Social links">
           <div className="social-links">
