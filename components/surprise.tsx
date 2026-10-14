@@ -6,7 +6,7 @@ import NextImage from "next/image";
 const destination = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
 export function Surprise() {
-  const [seconds, setSeconds] = useState(3);
+  const [seconds, setSeconds] = useState(2);
   const dialog = useRef<HTMLDialogElement>(null);
   const cleanup = useRef<(() => void) | null>(null);
 
