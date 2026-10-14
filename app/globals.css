@@ -247,22 +247,26 @@ body {
   justify-content: center;
   min-height: 46px;
   padding: 11px 18px;
-  border: 1px solid #666;
-  border-radius: 999px;
-  background: #1b1b1b;
+  border: 0;
+  border-radius: 0;
+  background: #000;
   color: #eee;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
   font-family: inherit;
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
   text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  white-space: pre;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.surprise-tap { display: none; }
+@media (max-width: 600px), (hover: none) and (pointer: coarse) {
+  .surprise-click { display: none; }
+  .surprise-tap { display: inline; }
 }
 
 .surprise-button:hover {
-  border-color: #888;
   color: #fff;
   transform: translateY(-2px);
 }

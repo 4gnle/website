@@ -91,7 +91,7 @@ export function Surprise() {
   return (
     <>
       <button type="button" className="surprise-button" aria-haspopup="dialog" onClick={startSurprise}>
-        CLICK FOR A SURPRISE
+        <span className="surprise-click">CLICK</span><span className="surprise-tap">TAP</span>{" "}FOR A SURPRISE
       </button>
       <dialog ref={dialog} className="surprise-overlay" aria-label="Surprise" onCancel={() => cleanup.current?.()}>
         {seconds > 0 ? (
