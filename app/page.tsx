@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useRef, useState } from "react";
+import { Surprise } from "@/components/surprise";
 
 const story = [
   "My story started in 1996.",
@@ -115,7 +116,7 @@ export default function Home() {
             WHAT I’VE BUILT
           </button>
           <a
-            href="/Angel_Gomez_Product_Engineer_CV_Final.pdf"
+            href="/Angel_Gomez_Product_Engineer_2026.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -383,6 +384,7 @@ export default function Home() {
         </dialog>
 
       </article>
+      <Surprise />
     </main>
   );
 }

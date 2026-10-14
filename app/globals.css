@@ -239,18 +239,21 @@ body {
 
 .surprise-button {
   position: fixed;
-  right: clamp(16px, 3vw, 36px);
-  bottom: clamp(16px, 3vw, 32px);
-  z-index: 10;
+  right: max(clamp(16px, 3vw, 36px), env(safe-area-inset-right));
+  bottom: max(clamp(16px, 3vw, 32px), env(safe-area-inset-bottom));
+  z-index: 50;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 46px;
   padding: 11px 18px;
-  border: 1px solid #444;
-  border-radius: var(--radius);
-  background: rgba(0, 0, 0, 0.88);
-  color: #aaa;
+  border: 1px solid #666;
+  border-radius: 999px;
+  background: #1b1b1b;
+  color: #eee;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  font-family: inherit;
+  cursor: pointer;
   font-size: 14px;
   line-height: 1;
   text-decoration: none;
@@ -269,6 +272,25 @@ body {
   outline-offset: 4px;
 }
 
+.surprise-overlay {
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: #fff;
+}
+
+.surprise-overlay::backdrop { background: #000; }
+.surprise-countdown { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
+.surprise-countdown p { margin: 0; font-size: clamp(24px, 5vw, 40px); }
+.surprise-spinner { width: 40px; height: 40px; border: 2px solid #333; border-top-color: #fff; border-radius: 50%; animation: surprise-spin 1s linear infinite; }
+.surprise-face { object-fit: cover; }
+@keyframes surprise-spin { to { transform: rotate(360deg); } }
+
 @media (max-width: 520px) {
   body {
     font-size: 16px;
@@ -284,6 +306,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .surprise-spinner { animation: none; }
   .surprise-button {
     transition: none;
   }
