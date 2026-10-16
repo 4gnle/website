@@ -46,54 +46,19 @@ export default function Home() {
     <main className="story-page">
       <article className="story" aria-label="Angel's story">
         <header className="intro">
-          <h1>
-            <span className="greeting">
-              <img
-                className="portrait"
-                src="/angel.png"
-                alt="Angel Gomez"
-                width={90}
-                height={90}
-              />{" "}
-              <span>Hey, I’m Angel.</span>
-            </span>
-            I like to build stuff. Usually from nothing to <em>something.</em>
-          </h1>
-          <p className="intro-description">
-            I’m a product engineer building web, mobile and AI products.
-          </p>
+          <h1>I like to build things</h1>
           <p className="intro-description">
             Built{" "}
-            <a
-              href="https://www.apexfitness.app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              APEX
-            </a>{" "}
+            <a href="https://www.apexfitness.app" target="_blank" rel="noopener noreferrer">APEX</a>{" "}
             on{" "}
-            <a
-              href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              iOS
-            </a>{" "}
+            <a href="https://apps.apple.com/us/app/apex-lifting-and-diet-coach/id6760598647" target="_blank" rel="noopener noreferrer">iOS</a>{" "}
             and{" "}
-            <a
-              href="https://play.google.com/store/apps/details?id=app.apexfitness.apex"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Android
-            </a>{" "}
-            solo. Previously Product Lead at <a
-              href="https://www.pear.garden"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Pear Protocol
-            </a>
+            <a href="https://play.google.com/store/apps/details?id=app.apexfitness.apex" target="_blank" rel="noopener noreferrer">Android</a>{" "}
+            solo. Previously Product Lead at{" "}
+            <a href="https://www.pear.garden" target="_blank" rel="noopener noreferrer">Pear Protocol</a>
+          </p>
+          <p className="intro-description">
+            What am I building next? Probably a house
           </p>
         </header>
         <div className="intro-actions">

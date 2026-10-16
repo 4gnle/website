@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-const title = 'Angel Gomez | Product Engineer LATAM';
-const description = 'Product engineer based in Santiago, Chile, LATAM. Built and launched APEX. Former Product Lead at Pear Protocol.';
+const title = "he's building something maybe";
+const description = "he's building something maybe";
 
 export const metadata: Metadata = {
   title,
