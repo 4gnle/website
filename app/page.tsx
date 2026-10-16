@@ -115,13 +115,7 @@ export default function Home() {
           >
             WHAT I’VE BUILT
           </button>
-          <a
-            href="/Angel_Gomez_Product_Engineer_2026.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CHECK MY RESUME
-          </a>
+          <Surprise variant="resume" />
         </div>
         <div className="contact-details">
         <nav className="social-nav" aria-label="Social links">

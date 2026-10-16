@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import NextImage from "next/image";
 
-const destination = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-
-export function Surprise() {
-  const [seconds, setSeconds] = useState(2);
+export function Surprise({ variant = "surprise" }: { variant?: "surprise" | "resume" }) {
+  const isResume = variant === "resume";
+  const destination = isResume
+    ? "/Angel_Gomez_Product_Engineer_2026.pdf"
+    : "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  const [seconds, setSeconds] = useState(3);
   const dialog = useRef<HTMLDialogElement>(null);
   const cleanup = useRef<(() => void) | null>(null);
 
@@ -75,7 +77,7 @@ export function Surprise() {
         if (buffer && context) {
           sound = context.createBufferSource();
           sound.buffer = buffer;
-          sound.loop = true;
+          sound.loop = false;
           sound.connect(context.destination);
           sound.start();
           sound.stop(context.currentTime + 4);
@@ -90,14 +92,17 @@ export function Surprise() {
 
   return (
     <>
-      <button type="button" className="surprise-button" aria-haspopup="dialog" onClick={startSurprise}>
-        <span className="surprise-click">CLICK</span><span className="surprise-tap">TAP</span>{" "}FOR A SURPRISE
+      <button type="button" className={isResume ? undefined : "surprise-button"} aria-haspopup="dialog" onClick={startSurprise}>
+        {isResume ? "CHECK MY RESUME" : <>
+          <span className="surprise-click">CLICK FOR A SURPRISE</span>
+          <span className="surprise-tap">TAP FOR A SURPRISE</span>
+        </>}
       </button>
-      <dialog ref={dialog} className="surprise-overlay" aria-label="Surprise" onCancel={() => cleanup.current?.()}>
+      <dialog ref={dialog} className="surprise-overlay" aria-label={isResume ? "Loading resume" : "Surprise"} onCancel={() => cleanup.current?.()}>
         {seconds > 0 ? (
           <output className="surprise-countdown" aria-live="polite" aria-atomic="true">
             <span className="surprise-spinner" aria-hidden="true" />
-            <p>Wait {seconds} {seconds === 1 ? "second" : "seconds"}…</p>
+            <p>{isResume ? `LOADING RESUME… ${seconds}` : `Wait ${seconds} ${seconds === 1 ? "second" : "seconds"}…`}</p>
           </output>
         ) : (
           <NextImage className="surprise-face" src="/scary-face.jpg" alt="Scary face" fill unoptimized loading="eager" />
