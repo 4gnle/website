@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { metacriticMovieUrl } from "@/lib/movie-links";
 import { useState, useSyncExternalStore } from "react";
 import styles from "./movies.module.css";
 
@@ -11,6 +12,8 @@ export type Movie = {
   rating: number;
   ratedAt: string;
   poster: string | null;
+  imdbRating: number | null;
+  metascore: number | null;
 };
 
 const mobileQuery = "(max-width: 600px)";
@@ -92,16 +95,30 @@ export function MovieGallery({ movies }: { movies: Movie[] }) {
         <ul className={styles.grid}>
           {visible.map((movie) => (
             <li key={movie.id}>
-              <a className={styles.card} href={`https://www.imdb.com/title/${movie.id}/`} target="_blank" rel="noopener noreferrer">
-                <div className={styles.posterFrame}>
-                  <Poster movie={movie} />
+              <div className={styles.card}>
+                <a className={styles.posterLink} href={`https://www.imdb.com/title/${movie.id}/`} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title} on IMDb (opens in a new tab)`}>
+                  <div className={styles.posterFrame}>
+                    <Poster movie={movie} />
+                    <div className={styles.angelRating} aria-label={`Angel’s rating: ${movie.rating} out of 10`}>
+                      <span>Angel’s rating</span>
+                      <span className={styles.angelScore}>{movie.rating}<span className={styles.angelOutOf}>/10</span></span>
+                    </div>
+                  </div>
+                </a>
+                <h2><a className={styles.titleLink} href={`https://www.imdb.com/title/${movie.id}/`} target="_blank" rel="noopener noreferrer">{movie.title}{movie.year !== null && <> <span className={styles.year}>({movie.year})</span></>}</a></h2>
+                <div className={styles.scores}>
+                  <a className={styles.scoreRow} href={`https://www.imdb.com/title/${movie.id}/`} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title}: IMDb rating ${movie.imdbRating?.toFixed(1) ?? "unavailable"} (opens in a new tab)`}>
+                    <span className={styles.imdbIcon} aria-hidden="true">IMDb</span>
+                    <span className={styles.scoreValue}>{movie.imdbRating?.toFixed(1) ?? <span className={styles.unavailable}>N/A</span>}</span>
+                  </a>
+                  <a className={styles.scoreRow} href={metacriticMovieUrl(movie)} target="_blank" rel="noopener noreferrer" aria-label={`${movie.title}: Metascore ${movie.metascore ?? "unavailable"} on Metacritic (opens in a new tab)`}>
+                    <span className={styles.metascoreLabel}><span className={styles.metascoreIcon} aria-hidden="true">m</span> Metascore</span>
+                    <span className={movie.metascore === null ? styles.unavailable : `${styles.metascore} ${movie.metascore >= 70 ? styles.positive : movie.metascore >= 30 ? styles.mixed : styles.negative}`}>
+                      {movie.metascore ?? "N/A"}
+                    </span>
+                  </a>
                 </div>
-                <h2>{movie.title}</h2>
-                <p className={styles.rating} aria-label={`My rating: ${movie.rating} out of 10`}>
-                  <span aria-hidden="true">★</span> {movie.rating}<span className={styles.outOf}>/10</span>
-                </p>
-                <p className={styles.year}>{movie.year ?? "Year unknown"}</p>
-              </a>
+              </div>
             </li>
           ))}
         </ul>

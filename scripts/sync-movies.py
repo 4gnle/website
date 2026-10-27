@@ -60,6 +60,10 @@ def main():
     with (ROOT / 'public/IMDbRatings.UserRatings.csv').open(encoding='utf-8-sig', newline='') as source:
         ratings = [row for row in csv.DictReader(source) if int(row['Rating']) >= 7]
     cache = json.loads(CACHE.read_text()) if CACHE.exists() else {}
+    imdb_scores_path = ROOT / 'data/imdb-scores.json'
+    metascores_path = ROOT / 'data/metascores.json'
+    imdb_scores = json.loads(imdb_scores_path.read_text()) if imdb_scores_path.exists() else {}
+    metascores = json.loads(metascores_path.read_text()) if metascores_path.exists() else {}
     pending = sorted({row['Title ID'] for row in ratings} - cache.keys())
     print(f'{len(ratings)} qualifying ratings; {len(pending)} title lookups needed.', flush=True)
     if not args.cached_only:
@@ -87,6 +91,8 @@ def main():
                 'id': title_id, 'title': details['title'], 'year': details['year'],
                 'rating': int(row['Rating']), 'ratedAt': row['Last Modified Date'],
                 'poster': poster,
+                'imdbRating': imdb_scores.get(title_id),
+                'metascore': metascores.get(title_id),
             })
     movies.sort(key=lambda movie: (-movie['rating'], movie['title'].casefold(), movie['id']))
     write_json(OUTPUT, movies)

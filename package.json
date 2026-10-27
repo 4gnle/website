@@ -10,7 +10,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "movies:refresh": "python3 scripts/sync-movie-scores.py --metascores --limit 1000"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

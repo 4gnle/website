@@ -4,6 +4,8 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Surprise } from "@/components/surprise";
 import Link from "next/link";
 
+const moviesMention = "watched thousands of movies";
+
 const story = [
   "My story started in 1996.",
   "Since I was a child I've loved computers. I got my first computer when I was about 10 years old and it changed my life.",
@@ -235,7 +237,13 @@ export default function Home() {
                     : undefined
                 }
               >
-                {paragraph}
+                {paragraph.includes(moviesMention) ? (
+                  <>
+                    {paragraph.split(moviesMention)[0]}
+                    <Link href="/movies" onClick={() => setOpenSection(null)}>{moviesMention}</Link>
+                    {paragraph.split(moviesMention)[1]}
+                  </>
+                ) : paragraph}
               </p>
             </Fragment>
           ))}
@@ -330,12 +338,12 @@ export default function Home() {
           </p>
           <h2 className="chapter">What’s next?</h2>
           <p>
-            Now I’m looking for my next role. I’ve built on my own and led a
-            team, and I’d like to put both experiences to work.
+            I honestly don&apos;t have any idea. Software is getting easy to
+            build, hardware seems interesting, and I want to stop looking at
+            screens all day...
           </p>
           <p>
-            I’d like to keep building software and learning from the people I
-            work with.
+            Let&apos;s see what happens 👀
           </p>
           <p className="story-ending">
             I’m still the same kid who got his first computer and wanted to

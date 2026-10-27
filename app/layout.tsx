@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-const title = "he's building something maybe";
+const title = "ANGEL";
 const description = "he's building something maybe";
+const siteUrl = process.env.SITE_URL
+  || process.env.VERCEL_PROJECT_PRODUCTION_URL
+  || process.env.VERCEL_URL
+  || 'http://localhost:3000';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl.includes('://') ? siteUrl : `https://${siteUrl}`),
   title,
   description,
   openGraph: {
@@ -13,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title,
     description,
   },

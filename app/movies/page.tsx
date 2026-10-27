@@ -5,14 +5,14 @@ import importStatus from "@/data/movies-status.json";
 import { MovieGallery, type Movie } from "./movie-gallery";
 import styles from "./movies.module.css";
 
-const title = "Favorite Movies | Angel Gomez";
+const title = "MOVIES I LIKE";
 const description = "Movies I liked enough to rate 7/10 or higher.";
 
 export const metadata: Metadata = {
   title,
   description,
   openGraph: { title, description, type: "website" },
-  twitter: { card: "summary", title, description },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function MoviesPage() {
@@ -21,11 +21,11 @@ export default function MoviesPage() {
       <Link href="/" className={styles.back}>← Back home</Link>
       <header className={styles.header}>
         <h1>FAVORITE MOVIES</h1>
-        <p>Movies I’ve rated 7 or higher. Some favorites, some just a good time.</p>
+        <p>Movies I’ve rated 7 or higher. Subjective ratings although most of them are still exceptional movies.</p>
       </header>
       <MovieGallery movies={catalog as Movie[]} />
       <footer className={styles.footer}>
-        My ratings, from IMDb. Select a movie to see it on IMDb.
+        Posters and titles open IMDb. Scores link to their sources.
         {importStatus.pendingTitles > 0 && (
           <p>Partial collection · {importStatus.pendingTitles.toLocaleString()} rated titles haven’t been imported yet.</p>
         )}
