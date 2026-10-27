@@ -48,6 +48,8 @@
   margin-top: 20px;
 }
 
+.story .movies-link { margin: 24px 0 0; font-size: 14px; }
+
 .current-location svg {
   flex-shrink: 0;
 }

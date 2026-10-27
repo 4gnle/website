@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Surprise } from "@/components/surprise";
+import Link from "next/link";
 
 const story = [
   "My story started in 1996.",
@@ -110,6 +111,7 @@ export default function Home() {
           </div>
         </nav>
         </div>
+        <p className="movies-link"><Link href="/movies">FAVORITE MOVIES ↗</Link></p>
         <section className="writing" aria-labelledby="writing-title">
           <h2 id="writing-title">Writing</h2>
           <ul>
