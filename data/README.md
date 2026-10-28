@@ -25,6 +25,12 @@ catalog without network requests.
 
 The page uses a local snapshot: it does not sync your IMDb account automatically.
 
+The gallery supports exact rating filters (All, 10, 9, 8, 7), title/year search,
+and a random picker using the current filters. Search (`q`), sorting (`sort`),
+rating (`rating`), and pagination (`page`) are saved in the URL. Copy link shares
+that view; browser Back/Forward restores previous views. These controls make no
+IMDb or OMDb requests. Run `npm run test:movies` for the gallery state tests.
+
 ## IMDb ratings and Metascores
 
 After syncing your ratings export, refresh the public IMDb scores with:
