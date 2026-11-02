@@ -70,14 +70,22 @@ if the provider's quota has already been consumed. Visitors make no API calls.
 Transient network failures retry up to three times per title, with each attempt
 counted toward the same cap. Authentication and API quota errors stop the run.
 
-`.github/workflows/refresh-movie-scores.yml` schedules this command daily at
-06:17 UTC and also supports manual runs. It builds the site before committing
+`.github/workflows/refresh-movie-scores.yml` schedules this command every Monday at
+06:17 UTC (every seven days) and also supports manual runs. It builds the site before committing
 generated data and the request budget to the default branch. A connected hosting
 Git integration can deploy that commit; the workflow itself does not configure
 or invoke hosting deployments.
 
 To activate the schedule, push the workflow to the default branch and add
-`OMDB_API_KEY` as a GitHub Actions repository secret. The ignored local
+`OMDB_API_KEY` as a GitHub Actions repository secret:
+
+1. Open the repository on GitHub, then **Settings → Secrets and variables → Actions**.
+2. Under **Secrets**, click **New repository secret**.
+3. Set **Name** to `OMDB_API_KEY` and **Secret** to your activated OMDb API key.
+4. Click **Add secret**. To retry immediately, open **Actions → Refresh movie scores → Run workflow**.
+
+The workflow reads `${{ secrets.OMDB_API_KEY }}` and provides it to the importer.
+The ignored local
 `.env.local` is not available on GitHub. The bot also needs permission to push
 the generated-data commit to the default branch. No secret is committed.
 
